@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import db from "../db";
-import { IUser } from '../interfaces/IUser';
+import { TUser } from '../interfaces&types/TUser';
 
 
 export const register = (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ export const register = (req: Request, res: Response) => {
 
         if (err) { return res.status(500).json(err)};
         
-        const user: IUser[] = data as IUser[];
+        const user: TUser[] = data as TUser[];
 
         if (user.length) { 
             return res.status(409).json("User already exists!")
@@ -37,7 +37,7 @@ export const login = (req: Request, res: Response) => {
     db.query(q, [req.body.email], (err, data) => {    
         if (err) { return res.status(500).json(err)}; 
         
-        const user: IUser[] = data as IUser[];
+        const user: TUser[] = data as TUser[];
         if (user.length === 0) { 
             return res.status(404).json("User not found");
         };
